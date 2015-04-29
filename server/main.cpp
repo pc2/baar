@@ -1,4 +1,7 @@
-//    Copyright (c) 2014 Marvin Damschen (marvin.damschen@gullz.de)
+//    Copyright (c) 2015 University of Paderborn 
+//                         (Marvin Damschen <marvin.damschen@gullz.de>,
+//                          Gavin Vaz <gavin.vaz@uni-paderborn.de>,
+//                          Heinrich Riebler <heinrich.riebler@uni-paderborn.de>)
 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
@@ -17,6 +20,8 @@
 //    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //    THE SOFTWARE.
+
+#include "mpi.h"
 
 #include "abstractserver.h"
 #include "shmemserver.h"
@@ -91,6 +96,6 @@ int main(int argc, char* argv[])
         server->start();
 
     server->end();
-
+    
     return 0;
 }

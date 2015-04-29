@@ -1,4 +1,7 @@
-//    Copyright (c) 2014 Marvin Damschen (marvin.damschen@gullz.de)
+//    Copyright (c) 2015 University of Paderborn 
+//                         (Marvin Damschen <marvin.damschen@gullz.de>,
+//                          Gavin Vaz <gavin.vaz@uni-paderborn.de>,
+//                          Heinrich Riebler <heinrich.riebler@uni-paderborn.de>)
 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
@@ -17,6 +20,8 @@
 //    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //    THE SOFTWARE.
+
+#include "socketclient.h"
 
 #include "polly/ScopDetection.h"
 #include "polly/LinkAllPasses.h"
@@ -47,7 +52,6 @@
 #include "pass/rpcaccelerate.h"
 #include "pass/accscore.h"
 #include "abstractclient.h"
-#include "socketclient.h"
 #include "shmemclient.h"
 
 #include <iostream>
@@ -201,9 +205,9 @@ int main(int argc, char* argv[]) {
                 if (maxBBFreq < currFreq)
                     maxBBFreq = currFreq;
             }
-    #ifndef NDEBUG
-            std::cout << "DEBUG: " << I->getName().str() << " max BB freq = " << maxBBFreq << std::endl;
-    #endif
+            #ifndef NDEBUG
+                    std::cout << "DEBUG: " << I->getName().str() << " max BB freq = " << maxBBFreq << std::endl;
+            #endif
             if (maxBBFreq > BBFreqThreshold)
                 accelerationCandidates.push_back(&(*I));
         }
@@ -277,7 +281,7 @@ int main(int argc, char* argv[]) {
         timeMeasureStream << std::endl;
     }
     timeMeasureStream.close();
-
+    
     LLVMShutdown();
 }
 

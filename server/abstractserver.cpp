@@ -1,4 +1,7 @@
-//    Copyright (c) 2014 Marvin Damschen (marvin.damschen@gullz.de)
+//    Copyright (c) 2015 University of Paderborn 
+//                         (Marvin Damschen <marvin.damschen@gullz.de>,
+//                          Gavin Vaz <gavin.vaz@uni-paderborn.de>,
+//                          Heinrich Riebler <heinrich.riebler@uni-paderborn.de>)
 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
@@ -193,19 +196,33 @@ llvm::GenericValue AbstractServer::handleCall(AbstractBackend* backend, char *ma
     calledFunction = backend->parseMarshalledCallToFunction(marshalledCall);
 
     // use typeinfo from function object to unmarshal arguments
+    
+    #ifndef TIMING 
+    auto StartTime = std::chrono::high_resolution_clock::now();
+    #endif  
     unmarshalCallArgs(marshalledCall, calledFunction->getName().size(), calledFunction, args, indexesOfPointersInArgs);
-
+    #ifndef TIMING 
+    auto EndTime = std::chrono::high_resolution_clock::now();
+    std::cout << "\n SERVR: MPI_DATA_TRANSFER C->S = " <<    std::chrono::duration_cast<std::chrono::microseconds>(EndTime - StartTime).count()  << "\n";
+    #endif
+        
     // finally, execute function call
     std::cout << "INFO" << ": running \"" << calledFunction->getName().str() << "\", having type '";
     std::cout.flush();
     calledFunction->getType()->dump();
     std::cout << "' in Engine\n";
 
-    auto StartTime = std::chrono::high_resolution_clock::now();
+    StartTime = std::chrono::high_resolution_clock::now();
     const llvm::GenericValue& ret = backend->callEngine(calledFunction, args);
-    auto EndTime = std::chrono::high_resolution_clock::now();
+    EndTime = std::chrono::high_resolution_clock::now();
     TimeDiffLastExecution = std::chrono::duration_cast<std::chrono::microseconds>(EndTime - StartTime);
+    #ifndef TIMING 
+    std::cout << "\n SERVR: Execution Time = " <<    std::chrono::duration_cast<std::chrono::microseconds>(EndTime - StartTime).count() << "\n";
+    #endif
+    
+    #ifndef NDEBUG
     std::cout << "DEBUG: " << "Function call returned, it took " << TimeDiffLastExecution.count() << " microseconds\n";
+    #endif
 
     return ret;
 }

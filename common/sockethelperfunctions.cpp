@@ -1,4 +1,7 @@
-//    Copyright (c) 2014 Marvin Damschen (marvin.damschen@gullz.de)
+//    Copyright (c) 2015 University of Paderborn 
+//                         (Marvin Damschen <marvin.damschen@gullz.de>,
+//                          Gavin Vaz <gavin.vaz@uni-paderborn.de>,
+//                          Heinrich Riebler <heinrich.riebler@uni-paderborn.de>)
 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +29,7 @@ static void error(const char *msg) {
 }
 
 void SocketHelperFunctions::marshallArrayOfSizeAndTypeIntoBuffer(void* arr, uint64_t size, std::pair<llvm::Type::TypeID, unsigned> typeIDAndBitwidthPointedTo, char* outputBuffer) {
-    std::cout << "DEBUG" << ": marshalling array of type " << typeIDAndBitwidthPointedTo.first << ((typeIDAndBitwidthPointedTo.second) ? ":" + std::to_string(typeIDAndBitwidthPointedTo.second) : "") << ", size " << size << std::endl;
+    std::cout << "DEBUG" << ": marshalling array of type " << typeIDAndBitwidthPointedTo.first << ((typeIDAndBitwidthPointedTo.second) ? ":" + std::to_string((unsigned long long)typeIDAndBitwidthPointedTo.second) : "") << ", size " << size << std::endl;
     unsigned arrayStrLen = 0U;
     std::shared_ptr<char> arrayStr((char*)calloc(MAX_ARR_SIZE, sizeof(char)), &free);
     char max_element[100];
@@ -115,7 +118,7 @@ void SocketHelperFunctions::marshallArrayOfSizeAndTypeIntoBuffer(void* arr, uint
             }
             break;
         default:
-            error(std::string("ERROR, LLVM TypeID " + std::to_string(typeIDAndBitwidthPointedTo.first) + " is not supported for arrays").c_str());
+            error(std::string("ERROR, LLVM TypeID " + std::to_string((long long)typeIDAndBitwidthPointedTo.first) + " is not supported for arrays").c_str());
     }
     strcat(outputBuffer, arrayStr.get());
 }

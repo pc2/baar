@@ -1,4 +1,7 @@
-//    Copyright (c) 2014 Marvin Damschen (marvin.damschen@gullz.de)
+//    Copyright (c) 2015 University of Paderborn 
+//                         (Marvin Damschen <marvin.damschen@gullz.de>,
+//                          Gavin Vaz <gavin.vaz@uni-paderborn.de>,
+//                          Heinrich Riebler <heinrich.riebler@uni-paderborn.de>)
 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +24,17 @@
 #ifndef SOCKETSERVER_H
 #define SOCKETSERVER_H
 
+#include "mpi.h"
+
 #include "abstractserver.h"
 #include "llvm/IR/DerivedTypes.h"
-
+#include "../common/mpihelper.h"
 
 class SocketServer : public AbstractServer
 {
 public:
     SocketServer(backendTypes backendType);
+    virtual ~SocketServer();
 
 protected:
     virtual void initCommunication();
@@ -39,7 +45,13 @@ protected:
 private:
     int sockfd;
 
+    // MPI_CONNECTION_INIT
+    MPI_Comm client; 
+    char port_name[MPI_MAX_PORT_NAME];
+
     void handle_conn(int sockfd);
+    struct ArgumentList argumentList[MAX_NUMBER_OF_ARGUMENTS];
+    MPI_Datatype ArgListType;
 };
 
 #endif // SOCKETSERVER_H

@@ -2,7 +2,7 @@ add_subdirectory(pass)
 
 add_executable(baar_client abstractclient.cpp shmemclient.cpp socketclient.cpp main.cpp)
 
-target_link_libraries(baar_client baar_common baar_client_passes)
+target_link_libraries(baar_client baar_common baar_client_passes mpi)
 
 find_library(LLVMX86_FOUND LLVMX86Utils PATHS ${LLVM_BIN_DIR}/lib)
 if(LLVMX86_FOUND)
@@ -52,6 +52,6 @@ if(UNIX AND NOT APPLE)
     target_link_libraries(baar_client rt)
 endif()
 
-if(CURSES_FOUND AND NOT ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "k1om")
-    target_link_libraries(baar_client ${CURSES_LIBRARIES})
-endif()
+#if(CURSES_FOUND AND NOT ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "k1om")
+#    target_link_libraries(baar_client ${CURSES_LIBRARIES})
+#endif()

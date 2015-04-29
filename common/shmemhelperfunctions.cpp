@@ -1,4 +1,7 @@
-//    Copyright (c) 2014 Marvin Damschen (marvin.damschen@gullz.de)
+//    Copyright (c) 2015 University of Paderborn 
+//                         (Marvin Damschen <marvin.damschen@gullz.de>,
+//                          Gavin Vaz <gavin.vaz@uni-paderborn.de>,
+//                          Heinrich Riebler <heinrich.riebler@uni-paderborn.de>)
 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
@@ -96,7 +99,7 @@ void ShmemHelperFunctions::marshallArrayOfSizeAndTypeIntoMemory(void *arr, int64
             }
             break;
         default:
-            error(std::string("ERROR, LLVM TypeID " + std::to_string(typeIDWithBitwidthPointedTo.first) + " is not supported for arrays").c_str());
+            error(std::string("ERROR, LLVM TypeID " + std::to_string((long long)typeIDWithBitwidthPointedTo.first) + " is not supported for arrays").c_str());
     }
 }
 
