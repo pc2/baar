@@ -10,6 +10,7 @@ The architecture of BAAR has been published in the following scientific papers:
 
 We gratefully acknowledge the support of the research leading to BAAR by the European Commission as part of the [FP7 project SAVE](http://www.fp7-save.eu) and the German Research Foundation as part of the Collaborative Research Center [CRC 901 On-the-Fly Computing](http://sfb901.uni-paderborn.de).
 
+(c) 2014–15 University of Paderborn, Paderborn Center for Parallel Computing
 
 ### Building with CMake
 
