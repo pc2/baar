@@ -1,7 +1,15 @@
 BAAR
 ====
 
-Binary Acceleration at Runtime
+BAAR (Binary Acceleration at Runtime) is an LLVM-based framework for transparent acceleration of binary applications using massively parallel accelerators (currently Xeon Phi). To this end, BAAR analyzes an application in LLVM binary format, identifies the computationally expensive functions (hotspots), and generates a parallelized and vectorized implementations of the hotspots on-the-fly targeting the Intel Xeon Phi accelerator. Once the code generation has finished, the application is transparently modified to offload the hotspot to the accelerator.
+
+The architecture of BAAR has been published in the following scientific papers:
+
+* M. Damschen and C. Plessl. __Easy-to-use on-the-fly binary program acceleration on many-cores.__ In *Proc. Int. Workshop on Adaptive Self-tuning Computing Systems*, Jan. 2015.
+* M. Damschen, H. Riebler, G. Vaz, and C. Plessl. __Transparent offloading of computational hotspots from binary code to Xeon Phi.__ In Proc. *Design, Automation and Test in Europe Conf. (DATE)*, pages 1078–1083. EDA Consortium, Mar. 2015.
+
+We gratefully acknowledge the support of the research leading to BAAR by the European Commission as part of the [FP7 project SAVE](http://www.fp7-save.eu) and the German Research Foundation as part of the Collaborative Research Center [CRC 901 On-the-Fly Computing](http://sfb901.uni-paderborn.de).
+
 
 ### Building with CMake
 
